@@ -12,9 +12,24 @@ class FileUpload extends Component {
     }
 
     handleUpload(event) {
-        const file = event.target.file[0];
-        const storageRef = firebase.storage().ref(`/fotos/${file.name`);
+        const file = event.target.files[0];
+        const storageRef = firebase.storage().ref(`/fotos/${file.name}`);
         const task = storageRef.put(file);
+
+        task.on('state_changed' , snapshot => {
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.setState({
+                uploadValue:percentage
+            })
+        }, error => {
+            console.log(error.message)
+        },  () =>{
+            storageRef.getDownloadURL().then(url => {
+                this.setState({
+                    picture: url
+                });
+            })
+        });
     }
 
     render() {
