@@ -9,6 +9,7 @@ class App extends Component {
             user: null
         };
         this.renderLoginButton = this.renderLoginButton.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
     componentWillMount() {
         firebase.auth().onAuthStateChanged(user => {
@@ -29,12 +30,16 @@ class App extends Component {
                 <div>
                     <img src={this.state.user.photoURL} alt={this.state.user.displayName} />
                     <p>Hola {this.state.user.displayName}!</p>
+                    <button onClick={this.handleLogout}>Cerrar Sesión</button>
                 </div>
             )
         }
         else{
             return (<button onClick={this.handleAuth}> Login con Google </button>)
         }
+    }
+    handleLogout() {
+        firebase.auth().signOut();
     }
 
     render() {
