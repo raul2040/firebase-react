@@ -34,6 +34,19 @@
   margin: 1%;
 }
 
+#contents{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#contents > img{
+  width: 10%;
+}
+
+#contents-body{
+  margin: 20px;
+}
+
 .buttons > div{
   display: inline-block;
   margin: 10px;

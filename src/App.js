@@ -24,7 +24,7 @@ class App extends Component {
 
     handleAuth(e) {
         const provider = e.target.getAttribute('Provider') === "Google" ?
-            new firebase.auth.GoogleAuthProvider():new firebase.auth.EmailAuthProvider();
+            new firebase.auth.GoogleAuthProvider() : new firebase.auth.EmailAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then(result => console.log(`${result.user.email} ha inciado sesión`))
             .catch(error => console.log(`Error: ${error.code}: ${error.message}`))
@@ -33,12 +33,19 @@ class App extends Component {
     renderLoginButton() {
         if (this.state.user) {
             return (
-                <div>
-                    <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
-                    <p>Hola {this.state.user.displayName}!</p>
-                    <button onClick={this.handleLogout}>Cerrar Sesión</button>
-                    <FileUpload/>
+                <div id='contents'>
+                        <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+                    <div id="contents-body">
+                        <h1>Hola {this.state.user.displayName}!</h1>
+                        <FileUpload/>
+                        <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
+                    </div>
                 </div>
+            )
+        }
+        else {
+            return (
+                <Button color="success" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>
             )
         }
     }
@@ -55,8 +62,7 @@ class App extends Component {
                               description={"Desarrollado por: Raúl Avilés, Adrian Carmona e Iván Román"}
                 />
                 <div className={'buttons'}>
-                    <Button color="success" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>,
-                    <Button color="success" provider={"Email"} onClick={this.handleAuth}> Login con Email </Button>
+                    {this.renderLoginButton()}
                     {modal}
                 </div>
             </div>
