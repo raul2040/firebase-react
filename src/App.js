@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from 'firebase';
 import './App.css';
 import FileUpload from './FileUpload/FileUpload';
+import Modal from './Modal/Modal';
 
 class App extends Component {
     constructor() {
@@ -50,7 +51,8 @@ class App extends Component {
                 <header className="App-header">
                     <h2>Proyecto despliegue de aplicaciones web</h2>
                 </header>
-                <p className={"App-intro"}>
+                    <Modal/>
+                   <p className={"App-intro"}>
                     {this.renderLoginButton()}
                 </p>
             </div>
