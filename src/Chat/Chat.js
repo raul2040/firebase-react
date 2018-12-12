@@ -4,17 +4,8 @@ import firebase from 'firebase';
 export default class Chat extends Component {
     constructor() {
         super();
-        this.state = {
-
-        };
+        this.state = {};
         this.push = this.push.bind(this);
-        this.displayChatMessage = this.displayChatMessage.bind(this);
-    }
-    componentWillMount(){
-        let commentsRef = firebase.database().ref('posts');
-        commentsRef.on('child_added', function (data) {
-            this.displayChatMessage(data.val());
-        });
     }
     push() {
         let message = document.getElementById("message").value;
@@ -23,11 +14,20 @@ export default class Chat extends Component {
             .catch(error => console.log(`Error: ${error.code}: ${error.message}`));
         console.log('posted message to server');
     }
+
     displayChatMessage(data) {
     var messages = document.getElementById('messages');
-    var newMessage = "Guest" + this.props.id + ": " + data.message;
+    var newMessage = this.props.id + ": " + data.message;
     newMessage = "<div>" + newMessage + "<div>";
     messages.innerHTML = messages.innerHTML + newMessage;
+    }
+
+    componentDidMount(){
+        var ref = firebase.database().ref("posts");
+        var that = this;
+        ref.on('child_added',function (data) {
+            that.displayChatMessage(data.val())
+        });
     }
 
     render() {
