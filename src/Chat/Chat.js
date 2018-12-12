@@ -9,6 +9,7 @@ export default class Chat extends Component {
     }
     push() {
         let message = document.getElementById("message").value;
+        document.getElementById('message').value = "";
         firebase.database().ref().child('posts').push({id: this.props.id , message: message}).
             then(result => console.log(`${result} ha inciado sesión`))
             .catch(error => console.log(`Error: ${error.code}: ${error.message}`));
@@ -17,7 +18,7 @@ export default class Chat extends Component {
 
     displayChatMessage(data) {
     var messages = document.getElementById('messages');
-    var newMessage = this.props.id + ": " + data.message;
+    var newMessage = data.id + ": " + data.message;
     newMessage = "<div>" + newMessage + "<div>";
     messages.innerHTML = messages.innerHTML + newMessage;
     }
@@ -37,6 +38,7 @@ export default class Chat extends Component {
                 <input id="message" type="text" placeholder="Message" className="box"/>
                     <button type="button" onClick={this.push}>Submit</button>
                     <div id="messages"/>
-            </div>)
+            </div>
+        )
     }
 }
