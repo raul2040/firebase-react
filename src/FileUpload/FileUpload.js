@@ -26,8 +26,10 @@ class FileUpload extends Component {
         },  () =>{
             storageRef.getDownloadURL().then(url => {
                 this.setState({
-                    picture: url
+                    picture: url,
+                    uploadValue:0
                 });
+                this.props.url(this.state.picture);
             })
         });
     }
@@ -39,7 +41,6 @@ class FileUpload extends Component {
                 <br/>
                 <input type="file" onChange={this.handleUpload}/>
                 <br />
-                <img width="320" src={this.state.picture} alt="" />
             </div>
         );
     }

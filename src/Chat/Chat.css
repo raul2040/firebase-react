@@ -1,0 +1,24 @@
+#messages{
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 30%;
+    height: 500px;
+}
+.mensaje{
+    display: block;
+    width: 100%;
+}
+.user{
+    color: #61dafb;
+}
+.messageData{
+    color: rgba(0, 0, 0, 0.91);
+}
+p{
+    display: inline-block;
+}
+.input-group{
+    width: 37%;
+}

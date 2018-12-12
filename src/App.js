@@ -11,10 +11,12 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            user: null
+            user: null,
+            photoUrl: ""
         };
         this.renderLoginButton = this.renderLoginButton.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.addImageToState = this.addImageToState.bind(this);
     }
 
     componentWillMount() {
@@ -38,8 +40,8 @@ class App extends Component {
                         <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
                     <div id="contents-body">
                         <h1>Hola {this.state.user.displayName}!</h1>
-                        <FileUpload/>
-                        <Chat id={this.state.user.displayName}/>
+                        <FileUpload url={this.addImageToState}/>
+                        <Chat id={this.state.user.displayName} photo={this.state.photoUrl}/>
                         <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
                     </div>
                 </div>
@@ -54,6 +56,12 @@ class App extends Component {
 
     handleLogout() {
         firebase.auth().signOut();
+    }
+
+    addImageToState(url) {
+        this.setState({
+            photoUrl:url
+        })
     }
 
     render() {
