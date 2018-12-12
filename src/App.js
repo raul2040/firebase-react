@@ -4,6 +4,7 @@ import './App.css';
 import FileUpload from './FileUpload/FileUpload';
 import CustomModal from './CustomModal/CustomModal';
 import CustomHeader from './customHeader/customHeader';
+import Chat from './Chat/Chat';
 import {Button} from 'reactstrap';
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
                     <div id="contents-body">
                         <h1>Hola {this.state.user.displayName}!</h1>
                         <FileUpload/>
+                        <Chat id={this.state.user.displayName}/>
                         <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
                     </div>
                 </div>
@@ -59,7 +61,7 @@ class App extends Component {
         return (
             <div className="App">
                 <CustomHeader title={"Proyecto despliegue de aplicaciones web"}
-                              description={"Desarrollado por: Raúl Avilés, Adrian Carmona e Iván Román"}
+                              description={"Desarrollado por: Raúl Avilés, Adrián Carmona e Iván Román"}
                 />
                 <div className={'buttons'}>
                     {this.renderLoginButton()}
