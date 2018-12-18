@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
+    font-size: 120%;
     height: 500px;
     display: inline-block;
     border-radius: 20px;
