@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, InputGroupAddon, Input} from 'reactstrap';
-import './CustomModal.css';
 
 class CustomModal extends React.Component {
     constructor(props) {
@@ -31,10 +30,30 @@ class CustomModal extends React.Component {
             return showButton;
     }
 
+    handleRegisterUser() {
+        this.props.saveUser(this.state.username, this.state.password);
+    }
+
+    handleLoginUser() {
+        this.props.handleAuthUser(this.state.username, this.state.password);
+    }
+
+    loginButton() {
+        if (this.state.password) {
+            return (
+                <div className={"btns-container"}>
+                    <Button color="primary" onClick={this.handleLoginUser}>Iniciar Sesión</Button>
+                    <Button color="primary" onClick={this.handleRegisterUser}>Registrarse</Button>
+                </div>
+            )
+
+        }
+    }
+
     render() {
         return (
-            <div>
-                <Button color={this.props.color} onClick={this.toggle}>{this.props.buttonLabel}</Button>
+            <div style={{display:'inline-block'}}>
+                <Button color={'info'} onClick={this.toggle}>{this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Registro</ModalHeader>
                     <ModalBody>

@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import firebase from 'firebase';
 import './Chat.css';
 import {Button} from 'reactstrap';
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
 
 export default class Chat extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            userColor: null
+        };
         this.push = this.push.bind(this);
     }
     push(e) {
@@ -23,10 +25,18 @@ export default class Chat extends Component {
             console.log('posted message to server');
         }
     }
+    randomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
     displayChatMessage(data) {
     var messages = document.getElementById('messages');
-    var newMessage = "<p class='user'>" + data.id  +"</p>" + ": " + "<p class='messageData'>" + data.message + "</p>";
+    var newMessage = `<p style=color:${this.state.userColor[data.id]} class='user'>` + data.id  +"</p>" + ": " + "<p class='messageData'>" + data.message + "</p>";
     newMessage = "<div class='mensaje'>" + newMessage + "<div>";
     messages.innerHTML = messages.innerHTML + newMessage;
     }
@@ -34,7 +44,10 @@ export default class Chat extends Component {
     componentDidMount(){
         var ref = firebase.database().ref("posts");
         var that = this;
+        const usersColor = {};
         ref.on('child_added',function (data) {
+            usersColor[data.id] = that.randomColor();
+            that.setState({userColor:usersColor});
             that.displayChatMessage(data.val())
         });
     }
@@ -42,12 +55,12 @@ export default class Chat extends Component {
     render() {
         return (
             <div>
-                <div id="username"/>
+                <div id="messages" style={{backgroundImage: `url(${this.props.photo})`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'100%'}}>
+                </div>
                 <InputGroup>
-                    <Input id="message" type="text"  style={{width:"30%"}} onKeyDown={this.push} placeholder="Message" className="box"/>
-                    <InputGroupAddon style={{width:"30%"}} addonType="append"> <Button color="success" type="button" onClick={this.push}>Submit</Button></InputGroupAddon>
+                    <Input id="message" type="text"  onKeyDown={this.push} placeholder="Message" className="box"/>
+                    <InputGroupAddon  addonType="append"> <Button color="success" type="button" onClick={this.push}>Enviar</Button></InputGroupAddon>
                 </InputGroup>
-                <div id="messages" style={{backgroundImage: `url(${this.props.photo})`}} />
             </div>
         )
     }

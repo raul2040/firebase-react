@@ -5,7 +5,9 @@ import FileUpload from './FileUpload/FileUpload';
 import CustomModal from './CustomModal/CustomModal';
 import CustomHeader from './customHeader/customHeader';
 import Chat from './Chat/Chat';
-import {Button} from 'reactstrap';
+import {Button, Nav, NavItem} from 'reactstrap';
+import logoFirebase from './img/Firebase.png';
+import notUserImg from './img/notUserImg.png';
 
 class App extends Component {
     constructor() {
@@ -14,9 +16,10 @@ class App extends Component {
             user: null,
             photoUrl: ""
         };
-        this.renderLoginButton = this.renderLoginButton.bind(this);
+        this.renderSignInLayout = this.renderSignInLayout.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.addImageToState = this.addImageToState.bind(this);
+        this.handleUserImg = this.handleUserImg.bind(this);
     }
 
     componentWillMount() {
@@ -36,15 +39,31 @@ class App extends Component {
         new firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => alert(error + " ha ocurrido un error"));
     }
 
-    renderLoginButton() {
+    handleAuthWithEmail(email, password) {
+        new firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(error => alert(error))
+    }
+
+    handleUserImg() {
+        let urlPhoto = this.state.user.photoURL !== null ? this.state.user.photoURL : notUserImg;
+        return (
+            <img src={urlPhoto} alt={this.state.user.displayName}/>
+        )
+    }
+
+    renderSignInLayout() {
         if (this.state.user) {
             return (
                 <div id='contents'>
-                        <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+                    <h1>Hola {this.state.user.displayName}!</h1>
+                    {this.handleUserImg()}
                     <div id="contents-body">
-                        <h1>Hola {this.state.user.displayName}!</h1>
-                        <FileUpload url={this.addImageToState}/>
                         <Chat id={this.state.user.displayName} photo={this.state.photoUrl}/>
+                    </div>
+                    <div>
+                        <FileUpload url={this.addImageToState}/>
+                    </div>
+                    <div id="close-session">
                         <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
                     </div>
                 </div>
@@ -52,7 +71,20 @@ class App extends Component {
         }
         else {
             return (
-                <Button color="success" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>
+                <div id={'preLogin'}>
+                    <Nav>
+                        <NavItem>
+                            <Button color="primary" provider={"Google"} onClick={this.handleAuth}> Login con
+                                Google </Button>
+                        </NavItem>
+                        <NavItem>
+                            <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail}
+                                         color="success"
+                                         buttonLabel={"sign in / sign up"}/>
+                        </NavItem>
+                    </Nav>
+                    <img id={'logo'} src={logoFirebase} alt={"firebase"}/>
+                </div>
             )
         }
     }
@@ -61,9 +93,14 @@ class App extends Component {
         firebase.auth().signOut();
     }
 
+    handleAuthUser(email, password) {
+        new firebase.auth().signInWithEmailAndPassword(email, password)
+            .catch(error => alert(error))
+    }
+
     addImageToState(url) {
         this.setState({
-            photoUrl:url
+            photoUrl: url
         })
     }
 
@@ -75,8 +112,7 @@ class App extends Component {
                               description={"Desarrollado por: Raúl Avilés, Adrián Carmona e Iván Román"}
                 />
                 <div className={'buttons'}>
-                    {this.renderLoginButton()}
-                    {modal}
+                    {this.renderSignInLayout()}
                 </div>
             </div>
         );

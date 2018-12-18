@@ -4,6 +4,9 @@
   justify-content: center;
 }
 
+.App{
+  background-color: rgba(249, 251, 255, 0);
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -29,27 +32,59 @@
 .App-link {
   color: #61dafb;
 }
-
-.buttons{
-  margin: 1%;
-}
-
 #contents{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
 }
 #contents > img{
-  width: 10%;
+  width: 40%;
+  vertical-align:initial;
+  vertical-align: top;
+  box-shadow: inset 0px 0px 15px white;
+  margin-left:10px ;
+  border-radius: 20px;
 }
-
+#contents > h1 {
+  margin-left: 1%;
+}
 #contents-body{
-  margin: 20px;
+  display: inline-block;
+  width: 56%;
 }
-
+#logo {
+  display: flex;
+  justify-content: center;
+  max-height:560px;
+  border-radius: 20px;
+}
+#close-session{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 26px;
+  margin-bottom: 10px;
+}
+.nav{
+  height: 75px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.buttons{
+  margin-top: -20px;
+  background-color: rgba(24, 27, 29, 0.95);
+  color: #56cfff;
+  box-shadow: inset 0px 0px 15px white;
+  margin-left:10px ;
+  border-radius: 20px;
+}
 .buttons > div{
   display: inline-block;
   margin: 10px;
+}
+#preLogin > Button{
+  display: inline-block;
+  margin-right: 10px;
+}
+#preLogin > #btn{
+  display: inline-block;
 }
 
 @keyframes App-logo-spin {
