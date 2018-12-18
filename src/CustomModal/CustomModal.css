@@ -12,3 +12,6 @@
     display: flex;
     justify-content: center;
 }
+.btns-container > Button{
+    margin: 5px;
+}

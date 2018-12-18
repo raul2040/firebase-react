@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup, InputGroupAddon} from 'reactstrap';
 import './CustomModal.css';
 
 class CustomModal extends React.Component {
@@ -13,6 +13,7 @@ class CustomModal extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.handleRegisterUser = this.handleRegisterUser.bind(this);
+        this.handleLoginUser = this.handleLoginUser.bind(this);
     }
 
     toggle() {
@@ -20,15 +21,25 @@ class CustomModal extends React.Component {
             modal: !this.state.modal
         });
     }
+
     handleRegisterUser() {
         this.props.saveUser(this.state.username, this.state.password);
     }
+
+    handleLoginUser() {
+        this.props.handleAuthUser(this.state.username, this.state.password);
+    }
+
     loginButton() {
-        return (
-            this.state.username !== "" && this.state.password !== "" ?
-            <Button color="primary" onClick={this.handleRegisterUser}>Do Something</Button> :
-            null
-        );
+        if (this.state.password) {
+            return (
+                <div className={"btns-container"}>
+                    <Button color="primary" onClick={this.handleLoginUser}>Iniciar Sesión</Button>
+                    <Button color="primary" onClick={this.handleRegisterUser}>Registrarse</Button>
+                </div>
+            )
+
+        }
     }
 
     render() {
@@ -52,7 +63,7 @@ class CustomModal extends React.Component {
                                 this.setState({
                                     password: e.target.value
                                 })
-                            }} />
+                            }}/>
                         </InputGroup>
                     </ModalBody>
                     <ModalFooter>

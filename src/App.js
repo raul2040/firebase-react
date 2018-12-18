@@ -61,6 +61,10 @@ class App extends Component {
     handleLogout() {
         firebase.auth().signOut();
     }
+    handleAuthUser(email, password) {
+        new firebase.auth().signInWithEmailAndPassword(email, password)
+            .catch(error => alert(error))
+    }
 
     addImageToState(url) {
         this.setState({
@@ -69,7 +73,7 @@ class App extends Component {
     }
 
     render() {
-        let modal = this.state.user ? null : <CustomModal saveUser={this.handleAuthWithEmail} color="success" buttonLabel={"Registrarse"}/>;
+        let modal = this.state.user ? null : <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail} color="success" buttonLabel={"Registrarse"}/>;
         return (
             <div className="App">
                 <CustomHeader title={"Proyecto despliegue de aplicaciones web"}
