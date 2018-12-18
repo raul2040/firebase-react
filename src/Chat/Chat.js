@@ -12,7 +12,7 @@ export default class Chat extends Component {
         this.push = this.push.bind(this);
     }
     push(e) {
-        if(e.keyCode == 13 ||e.keyCode == undefined) {
+        if(e.keyCode === 13 ||e.keyCode === undefined) {
             let message = document.getElementById("message").value;
             document.getElementById('message').value = "";
             firebase.database().ref().child('posts').push({
