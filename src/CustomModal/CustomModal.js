@@ -1,14 +1,18 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import './CustomModal.css';
 
 class CustomModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
+            modal: false,
+            username: "",
+            password: ""
         };
 
         this.toggle = this.toggle.bind(this);
+        this.handleRegisterUser = this.handleRegisterUser.bind(this);
     }
 
     toggle() {
@@ -16,18 +20,43 @@ class CustomModal extends React.Component {
             modal: !this.state.modal
         });
     }
+    handleRegisterUser() {
+        this.props.saveUser(this.state.username, this.state.password);
+    }
+    loginButton() {
+        return (
+            this.state.username !== "" && this.state.password !== "" ?
+            <Button color="primary" onClick={this.handleRegisterUser}>Do Something</Button> :
+            null
+        );
+    }
 
     render() {
         return (
             <div>
                 <Button color={this.props.color} onClick={this.toggle}>{this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Inicio con email / Registro </ModalHeader>
                     <ModalBody>
-
+                        <InputGroup>
+                            <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+                            <Input placeholder="username" onKeyDown={e => {
+                                this.setState({
+                                    username: e.target.value
+                                })
+                            }}/>
+                        </InputGroup>
+                        <InputGroup>
+                            <InputGroupAddon addonType="prepend">🔐</InputGroupAddon>
+                            <Input placeholder="password" type={'password'} onKeyDown={e => {
+                                this.setState({
+                                    password: e.target.value
+                                })
+                            }} />
+                        </InputGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        {this.loginButton()}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

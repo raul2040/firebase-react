@@ -32,6 +32,10 @@ class App extends Component {
             .then(result => console.log(`${result.user.email} ha inciado sesión`))
             .catch(error => console.log(`Error: ${error.code}: ${error.message}`))
     }
+    handleAuthWithEmail(email, password) {
+        new firebase.auth().createUserWithEmailAndPassword(email,password)
+            .catch(error => alert(error))
+    }
 
     renderLoginButton() {
         if (this.state.user) {
@@ -65,7 +69,7 @@ class App extends Component {
     }
 
     render() {
-        let modal = this.state.user ? null : <CustomModal color="success" buttonLabel={"Registrarse"}/>;
+        let modal = this.state.user ? null : <CustomModal saveUser={this.handleAuthWithEmail} color="success" buttonLabel={"Registrarse"}/>;
         return (
             <div className="App">
                 <CustomHeader title={"Proyecto despliegue de aplicaciones web"}
