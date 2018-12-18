@@ -68,7 +68,7 @@ class CustomModal extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         {this.loginButton()}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>

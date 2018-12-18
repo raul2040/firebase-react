@@ -7,6 +7,7 @@ import CustomHeader from './customHeader/customHeader';
 import Chat from './Chat/Chat';
 import {Button, Nav, NavItem} from 'reactstrap';
 import logoFirebase from './img/Firebase.png';
+import notUserImg from './img/notUserImg.png';
 
 class App extends Component {
     constructor() {
@@ -18,6 +19,7 @@ class App extends Component {
         this.renderSignInLayout = this.renderSignInLayout.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.addImageToState = this.addImageToState.bind(this);
+        this.handleUserImg = this.handleUserImg.bind(this);
     }
 
     componentWillMount() {
@@ -39,12 +41,19 @@ class App extends Component {
             .catch(error => alert(error))
     }
 
+    handleUserImg() {
+        let urlPhoto = this.state.user.photoURL !== null ? this.state.user.photoURL : notUserImg;
+        return (
+            <img src={urlPhoto} alt={this.state.user.displayName}/>
+        )
+    }
+
     renderSignInLayout() {
         if (this.state.user) {
             return (
                 <div id='contents'>
                     <h1>Hola {this.state.user.displayName}!</h1>
-                    <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+                    {this.handleUserImg()}
                     <div id="contents-body">
                         <Chat id={this.state.user.displayName} photo={this.state.photoUrl}/>
                     </div>
