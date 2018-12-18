@@ -6,6 +6,7 @@ import CustomModal from './CustomModal/CustomModal';
 import CustomHeader from './customHeader/customHeader';
 import Chat from './Chat/Chat';
 import {Button} from 'reactstrap';
+import logoFirebase from './img/Firebase.png';
 
 class App extends Component {
     constructor() {
@@ -32,8 +33,9 @@ class App extends Component {
             .then(result => console.log(`${result.user.email} ha inciado sesión`))
             .catch(error => console.log(`Error: ${error.code}: ${error.message}`))
     }
+
     handleAuthWithEmail(email, password) {
-        new firebase.auth().createUserWithEmailAndPassword(email,password)
+        new firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => alert(error))
     }
 
@@ -41,7 +43,7 @@ class App extends Component {
         if (this.state.user) {
             return (
                 <div id='contents'>
-                        <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
+                    <img src={this.state.user.photoURL} alt={this.state.user.displayName}/>
                     <div id="contents-body">
                         <h1>Hola {this.state.user.displayName}!</h1>
                         <FileUpload url={this.addImageToState}/>
@@ -53,7 +55,12 @@ class App extends Component {
         }
         else {
             return (
-                <Button color="success" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>
+                <div id={'preLogin'}>
+                    <img id={'logo'} src={logoFirebase} alt={"firebase"}/>
+                    <Button color="primary" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>
+                    <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail} color="success"
+                                 buttonLabel={"sign in / sign up"}/>
+                </div>
             )
         }
     }
@@ -61,6 +68,7 @@ class App extends Component {
     handleLogout() {
         firebase.auth().signOut();
     }
+
     handleAuthUser(email, password) {
         new firebase.auth().signInWithEmailAndPassword(email, password)
             .catch(error => alert(error))
@@ -68,12 +76,11 @@ class App extends Component {
 
     addImageToState(url) {
         this.setState({
-            photoUrl:url
+            photoUrl: url
         })
     }
 
     render() {
-        let modal = this.state.user ? null : <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail} color="success" buttonLabel={"Registrarse"}/>;
         return (
             <div className="App">
                 <CustomHeader title={"Proyecto despliegue de aplicaciones web"}
@@ -81,7 +88,6 @@ class App extends Component {
                 />
                 <div className={'buttons'}>
                     {this.renderLoginButton()}
-                    {modal}
                 </div>
             </div>
         );

@@ -44,8 +44,8 @@ class CustomModal extends React.Component {
 
     render() {
         return (
-            <div>
-                <Button color={this.props.color} onClick={this.toggle}>{this.props.buttonLabel}</Button>
+            <div style={{display:'inline-block'}}>
+                <Button color={'info'} onClick={this.toggle}>{this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Inicio con email / Registro </ModalHeader>
                     <ModalBody>

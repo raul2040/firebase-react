@@ -4,6 +4,9 @@
   justify-content: center;
 }
 
+.App{
+  background-color: rgba(249, 251, 255, 0);
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -30,9 +33,7 @@
   color: #61dafb;
 }
 
-.buttons{
-  margin: 1%;
-}
+
 
 #contents{
   display: flex;
@@ -46,10 +47,24 @@
 #contents-body{
   margin: 20px;
 }
-
+#logo {
+  display: flex;
+  justify-content: center;
+  max-height:560px;
+}
+.buttons{
+  margin-top: -20px;
+}
 .buttons > div{
   display: inline-block;
   margin: 10px;
+}
+#preLogin > Button{
+  display: inline-block;
+  margin-right: 10px;
+}
+#preLogin > #btn{
+  display: inline-block;
 }
 
 @keyframes App-logo-spin {

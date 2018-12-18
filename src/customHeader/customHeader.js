@@ -1,5 +1,6 @@
 import React from 'react';
 import { Jumbotron } from 'reactstrap';
+import './customHeader.css';
 
 const customHeader = (props) => {
     return (
