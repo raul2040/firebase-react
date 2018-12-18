@@ -37,6 +37,7 @@ class FileUpload extends Component {
     render() {
         return (
             <div>
+                <h1>Cambia el fondo del chat, sube una imagen! </h1>
                 <progress value={this.state.uploadValue} max="100"/>
                 <br/>
                 <input type="file" onChange={this.handleUpload}/>

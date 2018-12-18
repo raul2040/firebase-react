@@ -32,20 +32,21 @@
 .App-link {
   color: #61dafb;
 }
-
-
-
 #contents{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
 }
 #contents > img{
-  width: 10%;
+  width: 40%;
+  vertical-align:initial;
+  vertical-align: top;
+  box-shadow: inset 0px 0px 15px white;
+  margin-left:10px ;
+  padding: 15px;
+  border-radius: 20px;
 }
-
 #contents-body{
-  margin: 20px;
+  display: inline-block;
+  width: 56%;
 }
 #logo {
   display: flex;
@@ -54,6 +55,12 @@
 }
 .buttons{
   margin-top: -20px;
+  background-color: rgba(24, 27, 29, 0.95);
+  color: #56cfff;
+  box-shadow: inset 0px 0px 15px white;
+  margin-left:10px ;
+  padding: 15px;
+  border-radius: 20px;
 }
 .buttons > div{
   display: inline-block;

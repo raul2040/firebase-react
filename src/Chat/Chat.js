@@ -44,12 +44,12 @@ export default class Chat extends Component {
     render() {
         return (
             <div>
-                <div id="username"/>
+                <div id="messages" style={{backgroundImage: `url(${this.props.photo})`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'100%'}}>
+                </div>
                 <InputGroup>
-                    <Input id="message" type="text"  style={{width:"30%"}} onKeyDown={this.push} placeholder="Message" className="box"/>
-                    <InputGroupAddon style={{width:"30%"}} addonType="append"> <Button color="success" type="button" onClick={this.push}>Submit</Button></InputGroupAddon>
+                    <Input id="message" type="text"  onKeyDown={this.push} placeholder="Message" className="box"/>
+                    <InputGroupAddon  addonType="append"> <Button color="success" type="button" onClick={this.push}>Enviar</Button></InputGroupAddon>
                 </InputGroup>
-                <div id="messages" style={{backgroundImage: `url(${this.props.photo})`}} />
             </div>
         )
     }
