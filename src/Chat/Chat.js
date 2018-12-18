@@ -9,7 +9,7 @@ export default class Chat extends Component {
     constructor() {
         super();
         this.state = {
-
+            userColor: null
         };
         this.push = this.push.bind(this);
     }
@@ -25,10 +25,18 @@ export default class Chat extends Component {
             console.log('posted message to server');
         }
     }
+    randomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
     displayChatMessage(data) {
     var messages = document.getElementById('messages');
-    var newMessage = "<p class='user'>" + data.id  +"</p>" + ": " + "<p class='messageData'>" + data.message + "</p>";
+    var newMessage = `<p style=color:${this.state.userColor[data.id]} class='user'>` + data.id  +"</p>" + ": " + "<p class='messageData'>" + data.message + "</p>";
     newMessage = "<div class='mensaje'>" + newMessage + "<div>";
     messages.innerHTML = messages.innerHTML + newMessage;
     }
@@ -36,7 +44,10 @@ export default class Chat extends Component {
     componentDidMount(){
         var ref = firebase.database().ref("posts");
         var that = this;
+        const usersColor = {};
         ref.on('child_added',function (data) {
+            usersColor[data.id] = that.randomColor();
+            that.setState({userColor:usersColor});
             that.displayChatMessage(data.val())
         });
     }

@@ -5,7 +5,7 @@ import FileUpload from './FileUpload/FileUpload';
 import CustomModal from './CustomModal/CustomModal';
 import CustomHeader from './customHeader/customHeader';
 import Chat from './Chat/Chat';
-import {Button,Nav, NavItem} from 'reactstrap';
+import {Button, Nav, NavItem} from 'reactstrap';
 import logoFirebase from './img/Firebase.png';
 
 class App extends Component {
@@ -51,7 +51,9 @@ class App extends Component {
                     <div>
                         <FileUpload url={this.addImageToState}/>
                     </div>
-                    <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
+                    <div id="close-session">
+                        <Button color="danger" onClick={this.handleLogout}>Cerrar Sesión</Button>
+                    </div>
                 </div>
             )
         }
@@ -60,10 +62,12 @@ class App extends Component {
                 <div id={'preLogin'}>
                     <Nav>
                         <NavItem>
-                            <Button color="primary" provider={"Google"} onClick={this.handleAuth}> Login con Google </Button>
+                            <Button color="primary" provider={"Google"} onClick={this.handleAuth}> Login con
+                                Google </Button>
                         </NavItem>
                         <NavItem>
-                            <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail} color="success"
+                            <CustomModal handleAuthUser={this.handleAuthUser} saveUser={this.handleAuthWithEmail}
+                                         color="success"
                                          buttonLabel={"sign in / sign up"}/>
                         </NavItem>
                     </Nav>
